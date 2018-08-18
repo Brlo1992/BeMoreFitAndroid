@@ -4,14 +4,11 @@ import {
     Button,
     TextInput,
     Text,
-    AppRegistry,
     StyleSheet,
 } from 'react-native';
 import httpClient from '../Features/ApiIntegration/HttpClient';
 import routes from '../Features/ApiIntegration/Routes';
 import ErrorBox from '../Features/Errors/ErrorBox';
-import { createStackNavigator } from 'react-navigation';
-
 
 const styles = StyleSheet.create({
     container: { flex: 1, flexDirection: 'column', justifyContent: 'center', backgroundColor: "#FAFAD2" },
@@ -26,7 +23,11 @@ export default class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors: []
+            errors: [],
+            username: "abc",
+            email: "abc@abc.pl",
+            password: "abc",
+            repeatedPassword: "abc",
         }
     }
 
@@ -42,6 +43,7 @@ export default class Register extends React.Component {
     getData = () => {
         return {
             username: this.state.username,
+            email: this.state.email,
             password: this.state.password,
             repeatedPassword: this.state.repeatedPassword,
         }
@@ -56,7 +58,6 @@ export default class Register extends React.Component {
     }
 
     handleResponse = (response) => {
-        console.log("Register handle response" + JSON.stringify(response));
         if (response.isValid === true) {
             this.setState({ errors: [] });
             this.props.navigation.navigate("Login");
@@ -75,15 +76,21 @@ export default class Register extends React.Component {
         let errorBox = this.showErrors();
 
         return <View style={styles.container}>
+            <View style={styles.card}>{errorBox}</View>
             <View style={styles.card}>
-                {errorBox}
-                <Text style={styles.text}>Email</Text>
+                <Text style={styles.text}>Username</Text>
                 <TextInput style={styles.input} value={this.state.username} onChangeText={(username) => this.setState({ username })} />
+                <Text style={styles.text}>Email</Text>
+                <TextInput style={styles.input} value={this.state.email} onChangeText={(email) => this.setState({ email })} />
                 <Text style={styles.text}>Haslo</Text>
                 <TextInput style={styles.input} value={this.state.password} onChangeText={(password) => this.setState({ password })} />
                 <Text style={styles.text}>Powtorz haslo</Text>
                 <TextInput style={styles.input} value={this.state.repeatedPassword} onChangeText={(repeatedPassword) => this.setState({ repeatedPassword })} />
+            </View>
+            <View style={styles.card}>
                 <Button style={styles.button} title='Zarejestruj' onPress={this.handlePress} color="darkgreen" />
+            </View>
+            <View style={styles.card}>
                 <Button style={styles.button} title='Zaloguj' onPress={this.handleNavigateLogin} color="darkgreen" />
             </View>
         </View>

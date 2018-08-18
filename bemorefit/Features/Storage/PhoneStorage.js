@@ -4,7 +4,7 @@ class PhoneStorage {
     save = async (key, data) => {
         console.log("Trying set " + key);
         try {
-            await AsyncStorage.setItem(key, JSON.stringify(data));
+            await AsyncStorage.setItem(key, data);
         }
         catch (error) {
             console.log(error);
@@ -15,10 +15,8 @@ class PhoneStorage {
         let item = null
 
         try {
-            await AsyncStorage.getItem(key).then((value) =>  {
-                item = JSON.parse(value)
-                callback(item);
-            });
+            let result = await AsyncStorage.getItem(key);
+            callback(result);
         }
         catch (error) {
             console.log(error);

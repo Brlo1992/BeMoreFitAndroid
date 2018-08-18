@@ -5,11 +5,11 @@ import {
     TextInput,
     Text,
     StyleSheet,
+    AsyncStorage
 } from 'react-native';
 import httpClient from '../Features/ApiIntegration/HttpClient';
 import routes from '../Features/ApiIntegration/Routes';
 import ErrorBox from '../Features/Errors/ErrorBox';
-import PhoneStorage from '../Features/Storage/PhoneStorage';
 
 const styles = StyleSheet.create({
     container: { flex: 1, flexDirection: 'column', justifyContent: 'center', backgroundColor: "#FAFAD2" },
@@ -25,7 +25,9 @@ export default class Login extends React.Component {
 
         this.state = {
             rememberMe: false,
-            errors: []
+            errors: [],
+            password: 'ab',
+            username: 'ab'
         }
     }
 
@@ -64,14 +66,11 @@ export default class Login extends React.Component {
         this.handleResponse(response);
     };
 
-    handleResponse = async (response) => {
+    handleResponse = (response) => {
         console.log("handleResponse");
 
         if (response.isValid === true && response.data.token) {
             this.setState({ errors: [] });
-
-            await PhoneStorage.save('username', this.state.username);
-            await PhoneStorage.save('password', this.state.password);
 
             this.props.navigation.navigate("CurrentDay");
         }
@@ -83,39 +82,21 @@ export default class Login extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        await PhoneStorage.get('username', (value) => {
-            if (value) {
-                console.log(value);
-                this.setState({
-                    username: value
-                });
-            }
-            console.log("username empty");
-        });
-
-        await PhoneStorage.get('password', (value) => {
-            if (value) {
-                console.log(value);
-                this.setState({
-                    password: value
-                });
-            }
-            console.log("password empty");
-        });
-    }
-
     render() {
         let errorBox = this.showErrors();
 
         return <View style={styles.container}>
+            <View style={styles.card}>{errorBox}</View>
             <View style={styles.card}>
-                {errorBox}
                 <Text style={styles.text}>Login</Text>
                 <TextInput style={styles.input} value={this.state.username} onChangeText={(username) => this.setState({ username })} />
                 <Text style={styles.text}>Haslo</Text>
                 <TextInput style={styles.input} value={this.state.password} onChangeText={(password) => this.setState({ password })} />
+            </View>
+            <View style={styles.card}>
                 <Button style={styles.btn} title='Zaloguj' onPress={this.handlePress} color="darkgreen" />
+            </View>
+            <View style={styles.card}>
                 <Button style={styles.btn} title='Zarejestruj' onPress={this.handleRegister} color="darkgreen" />
             </View>
         </View>

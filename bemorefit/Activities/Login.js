@@ -4,12 +4,12 @@ import {
     Button,
     TextInput,
     Text,
-    StyleSheet,
-    AsyncStorage
+    StyleSheet
 } from 'react-native';
 import httpClient from '../Features/ApiIntegration/HttpClient';
 import routes from '../Features/ApiIntegration/Routes';
 import ErrorBox from '../Features/Errors/ErrorBox';
+import SQLite from 'react-native-sqlite-storage';
 
 const styles = StyleSheet.create({
     container: { flex: 1, flexDirection: 'column', justifyContent: 'center', backgroundColor: "#FAFAD2" },
@@ -23,12 +23,22 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
 
+        SQLite.openDatabase({name: 'my.db', location: 'default'}, () => console.log("db opened"), () => console.log("db error"));
+
         this.state = {
             rememberMe: false,
             errors: [],
             password: 'ab',
             username: 'ab'
         }
+    }
+
+    successdb = () => {
+        console.log("database opened");
+    }
+
+    errordb = () => {
+        console.log("error occured");
     }
 
     showErrors = () => {

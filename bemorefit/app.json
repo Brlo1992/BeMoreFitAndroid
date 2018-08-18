@@ -1,9 +1,4 @@
 {
   "name": "bemorefit",
-  "displayName": "bemorefit",
-  "expo": {
-    "sdkVersion": "27.0.0",
-    "slug": "bemorefit",
-    "name": "bemorefit"
-  }
+  "displayName": "bemorefit"
 }

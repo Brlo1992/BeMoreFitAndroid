@@ -1,22 +1,24 @@
 import AsyncStorage from "react-native"
 
 class PhoneStorage {
-    async save(key, data) {
+    save = async (key, data) => {
         console.log("Trying set " + key);
         try {
-            await AsyncStorage.setItem("@BeMoreFit:" + key, data);
+            await AsyncStorage.setItem(key, JSON.stringify(data));
         }
         catch (error) {
             console.log(error);
         }
     }
 
-    async get(key) {
+    get = async (key, callback) => {
         let item = null
 
         try {
-            await AsyncStorage.getItem("@BeMoreFit:" + key).then((value) => item  = value);
-            return item;
+            await AsyncStorage.getItem(key).then((value) =>  {
+                item = JSON.parse(value)
+                callback(item);
+            });
         }
         catch (error) {
             console.log(error);

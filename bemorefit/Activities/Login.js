@@ -9,21 +9,21 @@ import {
 import httpClient from '../Features/ApiIntegration/HttpClient';
 import routes from '../Features/ApiIntegration/Routes';
 import ErrorBox from '../Features/Errors/ErrorBox';
+import PhoneStorage from '../Features/Storage/PhoneStorage';
 
 const styles = StyleSheet.create({
     container: { flex: 1, flexDirection: 'column', justifyContent: 'center', backgroundColor: "#FAFAD2" },
     card: { marginBottom: 5, marginHorizontal: 20, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5 },
     text: { fontWeight: "bold", fontSize: 15, marginBottom: 5 },
     input: { height: 50 },
-    btn: {  marginBottom: 5 } //not working
+    btn: { marginBottom: 5 } //not working
 });
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            username: "ab",
-            password: "ab",
             rememberMe: false,
             errors: []
         }
@@ -64,11 +64,15 @@ export default class Login extends React.Component {
         this.handleResponse(response);
     };
 
-    handleResponse = (response) => {
+    handleResponse = async (response) => {
         console.log("handleResponse");
 
         if (response.isValid === true && response.data.token) {
             this.setState({ errors: [] });
+
+            await PhoneStorage.save('username', this.state.username);
+            await PhoneStorage.save('password', this.state.password);
+
             this.props.navigation.navigate("CurrentDay");
         }
         else {
@@ -77,6 +81,28 @@ export default class Login extends React.Component {
             console.log(messages);
             this.setState({ errors: messages });
         }
+    }
+
+    async componentDidMount() {
+        await PhoneStorage.get('username', (value) => {
+            if (value) {
+                console.log(value);
+                this.setState({
+                    username: value
+                });
+            }
+            console.log("username empty");
+        });
+
+        await PhoneStorage.get('password', (value) => {
+            if (value) {
+                console.log(value);
+                this.setState({
+                    password: value
+                });
+            }
+            console.log("password empty");
+        });
     }
 
     render() {

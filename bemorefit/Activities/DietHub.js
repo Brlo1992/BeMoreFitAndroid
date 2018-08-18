@@ -29,7 +29,21 @@ export default class DaysSet extends Component {
         return <View style={styles.container}>
             <Header/>
             <View style={styles.card}>
-                <DayHeader title="Menadzer diety" subTitle=""/>
+                <DayHeader title="Dieta" subTitle=""/>
+                <View>
+                    <View>
+                        <Text style={styles.label}>Dni</Text>
+                    </View>
+                    <View style={styles.hubSection}>
+                        <Button title="Obecny dzien" color="darkgreen" onPress={() => this.props.navigation.navigate("CurrentDay")}/>
+                    </View>
+                    <View style={styles.hubSection}>
+                        <Button title="Nowy dzien" color="darkgreen" onPress={() => this.props.navigation.navigate("DaysSetList")}/>
+                    </View>
+                    <View style={styles.hubSection}>
+                        <Button title="Przeglądaj" color="darkgreen" onPress={() => this.props.navigation.navigate("DaysSetList")}/>
+                    </View>
+                </View>
                 <View>
                     <View>
                         <Text style={styles.label}>Jadlospisy</Text>
@@ -41,17 +55,6 @@ export default class DaysSet extends Component {
                         <Button title="Przeglądaj" color="darkgreen" onPress={() => this.props.navigation.navigate("DaysSetList")}/>
                     </View>
                 </View>                
-                <View>
-                    <View>
-                        <Text style={styles.label}>Dni</Text>
-                    </View>
-                    <View style={styles.hubSection}>
-                        <Button title="Nowy dzien" color="darkgreen" onPress={() => this.props.navigation.navigate("DaysSetList")}/>
-                    </View>
-                    <View style={styles.hubSection}>
-                        <Button title="Przeglądaj" color="darkgreen" onPress={() => this.props.navigation.navigate("DaysSetList")}/>
-                    </View>
-                </View>
                 <View>
                     <View>
                         <Text style={styles.label}>Listy zakupow</Text>

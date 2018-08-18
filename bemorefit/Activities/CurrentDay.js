@@ -22,25 +22,49 @@ const styles = StyleSheet.create({
     card: { marginBottom: 5, flex: 0.9, marginHorizontal: 20, paddingTop: 5, paddingBottom: 5, paddingLeft: 5, paddingRight: 5 },
 });
 
-const swipeConfig = {
-    velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80
-};
+
 
 export default class CurrentDay extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            day: "Dzien 12",
+            daysSet: "Jadlospis 3",
+            dayInfo: {
+                nextMeal: "Kurczak pod serem mozzarella",
+                nextMealTime: "18:30",
+                spacesBetweenMeals: "3.5h"
+            },
+            meals: [
+
+            ]
+        }
+    }
+
+    getMeals = () => {
+        // const meals = this.state.meals.map((meal,))
+        return <ScrollView>
+            <UsedMealListItem />
+            <UsedMealListItem />
+            <MealListItem />
+            <MealListItem />
+            <MealListItem />
+            
+        </ScrollView>
+    }
+
+    async componentDidMount(){
+
+    }
+
     render() {
         return <View style={styles.container}>
             <Header />
             <View style={styles.card}>
-                <DayHeader title="Dzien 11" subTitle="Jadlospis 2" />
-                <DayInfo />
-                <ScrollView>
-                    <UsedMealListItem />
-                    <UsedMealListItem />
-                    <MealListItem />
-                    <MealListItem />
-                    <MealListItem />
-                </ScrollView>
+                <DayHeader title={this.state.day} subTitle={this.state.daysSet} />
+                <DayInfo info={this.state.dayInfo} />
+
             </View>
         </View>
     }

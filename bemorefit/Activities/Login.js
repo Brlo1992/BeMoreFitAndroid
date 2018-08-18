@@ -72,7 +72,7 @@ export default class Login extends React.Component {
         if (response.isValid === true && response.data.token) {
             this.setState({ errors: [] });
 
-            this.props.navigation.navigate("CurrentDay");
+            this.props.navigation.navigate("DietHub");
         }
         else {
             console.log(response.messages);

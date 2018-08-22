@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppRegistry } from 'react-native';
 import Login from './Activities/Login';
 import Register from './Activities/Register'
 import CurrentDay from './Activities/CurrentDay';
@@ -23,4 +24,4 @@ const App = createStackNavigator({
 });
 
 
-export default App;
+AppRegistry.registerComponent('mobileApp', () => App);

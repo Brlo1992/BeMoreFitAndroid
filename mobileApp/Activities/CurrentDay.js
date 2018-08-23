@@ -48,7 +48,6 @@ export default class CurrentDay extends Component {
             <MealListItem />
             <MealListItem />
             <MealListItem />
-
         </ScrollView>
     }
 
@@ -66,7 +65,7 @@ export default class CurrentDay extends Component {
                 this.props.navigation.navigate("DietHub");
                 break;
             case SWIPE_RIGHT:
-                this.props.navigation.navigate("Login");
+                this.props.navigation.navigate("SupplyGenerator");
                 break;
         }
     }

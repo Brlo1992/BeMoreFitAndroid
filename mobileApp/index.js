@@ -9,19 +9,20 @@ import DaysSetList from './Activities/DaysSetList';
 import SupplyGenerator from './Activities/SupplyGenerator';
 // import Controller from './Features/Routing/Controller';
 import { createStackNavigator } from 'react-navigation';
+import SomeComponent from './Activities/SomeComponent'
 
 const App = createStackNavigator({
-  Login: {screen: Login},
-  Register: {screen: Register},
-//   Home: {screen: Controller},
-  DietHub: {screen : DietHub},
+  Login: { screen: Login },
   CurrentDay: { screen: CurrentDay },
-  DaysSet: {screen: DaysSet},
-  DaysSetList: {screen: DaysSetList},
-  SupplyGenerator: {screen: SupplyGenerator}
-},{
-  headerMode: 'none' 
-});
+  DietHub: { screen: DietHub },
+  Register: { screen: Register },
+  //   Home: {screen: Controller},
+  DaysSet: { screen: DaysSet },
+  DaysSetList: { screen: DaysSetList },
+  SupplyGenerator: { screen: SupplyGenerator }
+}, {
+    headerMode: 'none'
+  });
 
 
 AppRegistry.registerComponent('mobileApp', () => App);
